@@ -1,0 +1,21 @@
+body {
+  margin-left: 100px;
+}
+
+#mon_canvas4, #mon_canvas5 {
+  border: 1px solid black;
+}
+
+h1, h2 {
+  text-decoration: underline;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  font-style: italic;
+  padding-top: 15px;
+}
+/*# sourceMappingURL=style.css.map */

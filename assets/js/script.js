@@ -99,6 +99,34 @@ class Projectiles {
 
 /**
  * =========================================
+ *            Création des 'particules'
+ * =========================================
+ */
+
+class Particle {
+    constructor({position, velocity, radius, color}) {
+        this.position = position
+        this.velocity = velocity
+
+        this.radius = radius
+        this.color = color
+        this.opacity = 1
+    }
+
+    draw() {
+        c.save()
+        c.globalAlpha = this.opacity
+        c.beginPath()
+        c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI*2)
+        c.fillStyle = this.color
+        c.fill()
+        c.closePath()
+        c.restore()
+    }
+}
+
+/**
+ * =========================================
  *            Création des 'envahiseurs'
  * =========================================
  */
@@ -224,6 +252,30 @@ let frames = 0
 let randomInterval = Math.floor((Math.random() * 500) + 500)
 
 /**
+ * @function createParticles()
+ */
+
+function createParticles({object, color}) {
+    for (let i = 0; i < 15; i++) {
+        Particle.push(
+            new Particle({
+                position: {
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height
+                }, 
+                velocity:{
+                    x:0,
+                    y:1
+                },
+                radius: Math.random()*3,
+                color: 'white'
+            })
+        )
+        
+    }
+}
+
+/**
  * @function animate()
  * permet d'afficher le vaisseau à l'écran
  */
@@ -247,6 +299,24 @@ function animate() {
         grid.update()
         grid.invaders.forEach(invader => {
             invader.update({velocity: grid.velocity})
+
+            projectiles.forEach((projectile, j) => {
+                if (
+                    projectile.position.y - projectile.radius <= invader.position.y + invader.height && 
+                    projectile.position.x + projectile.radius >= invader.position.x &&
+                    projectile.position.x - projectile.radius <= invader.position.x
+                ) {
+                    setTimeout(() => { 
+                        const invaderFound = grid.invader.find(invader2 => {
+                            return invader2 === invader
+                        })
+                        if (invaderFound) {
+                            grid.invaders.splice(i, 1)
+                            projectiles.splice(j, 1)
+                        }
+                    }, 0)
+                }
+            })
         })
     })
 
@@ -319,3 +389,9 @@ addEventListener('keyup', ({key}) => {
             break
     }
 })
+
+/**
+ * =========================================
+ *         Création du ciel étoilé
+ * =========================================
+ */

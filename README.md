@@ -1,9 +1,9 @@
 # PewPew
 
-Création d'un petit jeu du type *'Space invaders'* via Canvas
+Creation of a small game like *'Space invaders'* via Canvas
 
 ![](assets/img/demo.png)
 
-Le jeu n'est pas encore opérationnel. Les masques de collision ne fonctionnent pas encore..
+The game is not yet operational. Collision masks are not working yet.
 
 [PewPew](https://calcagnoloic.github.io/PewPew/)
